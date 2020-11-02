@@ -48,6 +48,7 @@ def stretch(rock):
     # We want to take the height and reduce it by half and double the width
     # This might cause us to lose some material?
     # What if we just did it from the top?
+    # the bottom row might end up as itself twice over
     print(rock)
     out_rock = [[0 for _ in range(2*len(rock[0]))] for _ in range(div2(len(rock)))]
     for i, row in enumerate(rock):
@@ -62,6 +63,7 @@ def stretch(rock):
 
 def fold(rock):
     # mostly TODO, but we can split it apart or something
+    # right rock can end up being larger by at most one col
     h = len(rock)
     w1 = len(rock[0])//2
     w2 = len(rock[0]) - w1
@@ -69,4 +71,15 @@ def fold(rock):
     Rrock = [[rock[r][c+w1] for c in range(w2)] for r in range(h)]
 
     return Lrock, Rrock
+
+def squish(r1, r2):
+    
+    # we might have to add an extra col if they aren't lined up
+    if len(r1[0]) < len(r2[0]):
+        for i, row in enumerate(r1):
+            row.append(row[-1])
+            r1[i] = row
+    
+    out_rock = r2[:] + r1[:]
+    return out_rock
     
