@@ -59,3 +59,14 @@ def stretch(rock):
         out_rock[i//2][2*j+i%2] = pixel
         print(out_rock)
     return out_rock
+
+def fold(rock):
+    # mostly TODO, but we can split it apart or something
+    h = len(rock)
+    w1 = len(rock[0])//2
+    w2 = len(rock[0]) - w1
+    Lrock = [[rock[r][c] for c in range(w1)] for r in range(h)]
+    Rrock = [[rock[r][c+w1] for c in range(w2)] for r in range(h)]
+
+    return Lrock, Rrock
+    
